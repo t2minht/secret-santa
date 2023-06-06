@@ -2,7 +2,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-            Things to be added... probably
+            Secret Santa
       </header>
     </div>
   );
