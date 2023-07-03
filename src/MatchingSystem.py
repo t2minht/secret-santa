@@ -1,9 +1,14 @@
 from Cousin import Cousin
-import random
+import random, csv
 
 def initalize():
     # Get all cousins from database and create cousin objects
     # Return dictionary...set...maybe list? of cousin objects
+    filename = "exampleBank.csv"
+    with open(filename, "r") as file:
+        reader = csv.reader(file)
+        fields = next(reader)
+        
     pass
 
 def setupPreferences(cousins):
