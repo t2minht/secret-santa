@@ -1,5 +1,5 @@
 class Cousin:
-    def __init__(self, name, preferences = None, parent):
+    def __init__(self, name, parent, preferences = None):
         self.name = name
         if preferences is not None:
             self.preferences = set(preferences) # who they prefer
