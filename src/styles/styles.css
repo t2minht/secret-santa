@@ -1,0 +1,24 @@
+.App{
+    background-image: url(C:\Users\avngu_1npbvy4\Desktop\Dev\Personal\secret-santa\src\CousinGif.gif);
+    background-repeat: no-repeat;
+    background-size: cover;
+    border: solid black 5px;
+    border-radius: 15px;
+    height: 100vh;
+    display:flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.formContainer{
+    display:flex;
+    background-color: aliceblue;
+    width:200vh;
+    height:70vh;
+    margin-top: 170px;
+    opacity: 80%;
+    border:3px outset;
+    border-top-color: darkred;
+    border-left-color: rgb(0, 66, 0);
+    border-bottom-color: rgb(0, 66, 0);
+    border-right-color: darkred;
+}
