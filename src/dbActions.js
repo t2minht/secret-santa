@@ -1,25 +1,27 @@
-import { getDatabase, ref, set, child, get } from "firebase/database";
-import { initialize } from "./config";
+import { getDatabase, ref, update, child, get } from "firebase/database";
 
-initialize();
 export function writeCousinData(name, preference, interests) {
   const db = getDatabase();
-  set(ref(db, "cousin/" + name), {
-    preference: preference,
-    interests: interests,
-  });
+  const updates = {};
+  updates["cousin/" + name + '/preferences'] = preference;
+  updates["cousin/" + name + '/interests'] = interests;
+  update(ref(db), updates);
 }
 export function readCousinData(name) {
     const dbRef = ref(getDatabase());
-    const cousin = 'cousin/' + name;
-    get(child(dbRef, cousin)).then((data) => {
-      if (data.exists()) {
-        return data;
+    var cousin = 'cousin/' + name;
+    let output;
+    get(child(dbRef, cousin)).then((snapshot) => {
+      if (snapshot.exists()) {
+        output = snapshot.val().parent;
+        console.log(output);
+        return output;
       } else {
         console.log("No data available");
+        return 0;
       }
     }).catch((error) => {
       console.error(error);
     });
-    return 0;
+    
 }

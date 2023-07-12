@@ -2,10 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {readCousinData} from './dbActions';
+import {readCousinData, writeCousinData} from './dbActions';
+import { initialize } from "./config";
+
+initialize();
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-readCousinData('Thi');
+writeCousinData('Thi','Test','test');
 root.render(
   <React.StrictMode>
     <App />
