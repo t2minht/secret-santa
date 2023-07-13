@@ -4,7 +4,9 @@ import './styles/styles.css';
 function App() {
   return (
     <div className="App" >
+      <div className='title'></div>
       <form>
+      <div className="spaceDiv"></div>
         <div className='formDiv familyDiv'>
           <label className='boldLabel' for="fam">Family: </label>
           {/*Family Choice*/}
@@ -28,7 +30,7 @@ function App() {
         </div>
 
         <div className='formDiv preferencesDiv'>
-          <label className='boldLabel'>Preferences: </label>
+          <label className='boldLabel'>Preferences *Your preference is not guranteed if multiple people reserve someone*: </label>
           <div className="preferences">
             <div className='checkBox'>
             <label for='av1'>Anh-Viet</label>
