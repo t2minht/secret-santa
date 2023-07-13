@@ -145,7 +145,7 @@ function App() {
     </div>
   );
   function submit(){
-    alert("Very Good :)\n\nIf you would like to change any of your selections, resubmit the form under your name.\n\n*NOTE* This will override your entire previous submission, meaning you must resubmit items that you had previously entered!!!")
+    alert("Very Good :)\n\nIf you would like to change any of your selections, resubmit the form under your name.\n\n*NOTE* This will override your entire previous submission, meaning you must resubmit items that you had previously entered if you would like to send it to the database!!!")
   }
   function changeName() {
     var getOptions = document.getElementsByClassName("famValue");
