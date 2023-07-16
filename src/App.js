@@ -1,4 +1,8 @@
 import './styles/styles.css';
+import { readCousinData, writeCousinData } from "./dbActions";
+import { initialize } from "./config";
+
+initialize();
 
 
 function App() {
@@ -30,13 +34,13 @@ function App() {
         </div>
 
         <div className='formDiv preferencesDiv'>
-          <label className='boldLabel'>Preferences *Your preference is not guranteed if multiple people reserve someone*: </label>
+          <label className='boldLabel'>Preferences *Your preference is not guranteed if multiple people reserve someone* DONT PICK YOURSELF OR YOUR FAM: </label>
           <div className="preferences">
             <div className='checkBox'>
             <label for='av1'>Anh-Viet</label>
             <input type='checkbox' id='av1' value={"Anh-Viet"} name='preference'></input>
             </div>
-            
+  
             <div className='checkBox'>
             <label for='av2'>Ai-Vy</label>
             <input type='checkbox' id='av2' value={"Ai-Vy"} name='preference'></input>
@@ -109,17 +113,17 @@ function App() {
 
             <div className='checkBox'>
             <label for='h1'>David</label>
-            <input type='checkbox' id='t1' value={"David"} name='preference'></input>
+            <input type='checkbox' id='h1' value={"David"} name='preference'></input>
             </div>
 
             <div className='checkBox'>
             <label for='h2'>Madison</label>
-            <input type='checkbox' id='t2' value={"Madison"} name='preference'></input>
+            <input type='checkbox' id='h2' value={"Madison"} name='preference'></input>
             </div>
 
             <div className='checkBox'>
             <label for='h3'>Aidan</label>
-            <input type='checkbox' id='t3' value={"Aidan"} name='preference'></input>
+            <input type='checkbox' id='h3' value={"Aidan"} name='preference'></input>
             </div>
 
             <div className='checkBox'>
@@ -139,13 +143,24 @@ function App() {
           </div>
         </div>
         <div className='submitButton '>
-          <button onClick={submit}className='submit formDiv'>Submit!</button>
+          <button onClick={submit} className='submit formDiv'>Submit!</button>
         </div>
       </form>
     </div>
   );
-  function submit(){
-    alert("Very Good :)\n\nIf you would like to change any of your selections, resubmit the form under your name.\n\n*NOTE* This will override your entire previous submission, meaning you must resubmit items that you had previously entered if you would like to send it to the database!!!")
+  function submit(event){
+    var idList = new Array("av1", "av2", "av3", "av4", "chris", "pktk1", "pktk2", "pktk3", "pktk4", "tyna", "t1", "t2", "t3", "t4", "t5","h1", "h2", "h3", "h4", "m1", "m2");
+    var preferenceList = "";
+    for (let i = 0; i<idList.length;i++){
+      var id = document.getElementById(idList[i]);
+      if (id.checked){
+        preferenceList+=id.value + ",";
+      }
+    }
+    preferenceList=preferenceList.substring(0,preferenceList.length-1);
+    writeCousinData(document.getElementById("cousin").value, preferenceList, document.getElementById("hobbies/interests").value);
+    alert("Very Good :)\n\nIf you would like to change any of your selections, resubmit the form under your name.\n\n*NOTE* This will override your entire previous submission, meaning you must resubmit items that you had previously entered if you would like to send it to the database!!!");
+    event.preventDefault();
   }
   function changeName() {
     var getOptions = document.getElementsByClassName("famValue");
