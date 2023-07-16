@@ -3,7 +3,15 @@ import { readCousinData, writeCousinData } from "./dbActions";
 import { initialize } from "./config";
 
 initialize();
-
+/*TO DO: 
+  -Dynamic Checkboxes
+  -Update Values w/ existing fields
+  -Show Checkboxes based on family
+  -Update Logo (Fix N and C Brats)
+  -Add Authentication
+  -Future Debate (Secretsanta delivery) (Text or In-browser)
+  -If Khoi and Tuong don't know what this means next year they owe me five dollars^
+*/
 
 function App() {
   return (
