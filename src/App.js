@@ -9,13 +9,27 @@ initialize();
   -Show Checkboxes based on family
   -Update Logo (Fix N and C Brats)
   -Add Authentication
+  -Create Voice memo that says shame shame shame
+  -Background music with just us singing
+
   -Future Debate (Secretsanta delivery) (Text or In-browser)
   -If Khoi and Tuong don't know what this means next year they owe me five dollars^
+  
 */
 
 function App() {
+  var preferences="";
   return (
     <div className="App" >
+      <div className="confirmContainer" id='confirmContainer'>
+        <h1 className="confirmTitle"><b>CONFIRM?</b></h1>
+        <p id='confirmCousin' className="confirmText"></p>
+        <p className="confirmText">***PLEASE make sure this is you!!***</p>
+        <p id='confirmHobbies' className="confirmText">Hobbies/Interests:</p>
+        <p id='confirmPreferences' className="confirmText">Preferences:</p>
+        <button id='verify' onClick={verify} className="confirmButton verify">YUP!</button>
+        <button id='noConfirm' onClick={noConfirm} className="confirmButton noConfirm">Not yet..</button>
+      </div>
       <div className='title'></div>
       <form>
       <div className="spaceDiv"></div>
@@ -30,10 +44,13 @@ function App() {
             <option className="famValue" value="nguyet" >Nguyet/David</option>
             <option className="famValue" value="ut" >Ut/Stephen</option>
           </select>
+          <br></br>
+          <br></br>
           <label className='boldLabel' for="cousin"> Cousin: </label>
           <select id="cousin" name="cousin">
-            <option className="cousinValue" value="" selected>Cousin</option>
+            <option className="cousinValue" value="none" selected>Cousin</option>
           </select>
+          <label className='boldLabel' for="cousin"> *MAKE SURE YOU CHOOSE ONLY YOUR NAME! NOT ANYONE ELSE'S*:</label>
         </div>
 
         <div className='formDiv hobbiesDiv'>
@@ -158,17 +175,43 @@ function App() {
   );
   function submit(event){
     var idList = new Array("av1", "av2", "av3", "av4", "chris", "pktk1", "pktk2", "pktk3", "pktk4", "tyna", "t1", "t2", "t3", "t4", "t5","h1", "h2", "h3", "h4", "m1", "m2");
-    var preferenceList = "";
-    for (let i = 0; i<idList.length;i++){
-      var id = document.getElementById(idList[i]);
-      if (id.checked){
-        preferenceList+=id.value + ",";
+      var preferenceList = "";
+      for (let i = 0; i<idList.length;i++){
+        var id = document.getElementById(idList[i]);
+        if (id.checked){
+          preferenceList+=id.value + ",";
+        }
       }
+      preferenceList=preferenceList.substring(0,preferenceList.length-1);
+      preferences=preferenceList;
+    if (document.getElementById("cousin").value=="none"){
+      alert("SHAME SHAME SHAME\n\nPlease state who you are under the family and cousin dropdowns!");
     }
-    preferenceList=preferenceList.substring(0,preferenceList.length-1);
-    writeCousinData(document.getElementById("cousin").value, preferenceList, document.getElementById("hobbies/interests").value);
-    alert("Very Good :)\n\nIf you would like to change any of your selections, resubmit the form under your name.\n\n*NOTE* This will override your entire previous submission, meaning you must resubmit items that you had previously entered if you would like to send it to the database!!!");
+    else {
+      document.getElementById("confirmCousin").innerHTML = "Who you are: "+ document.getElementById("cousin").value.bold();
+      document.getElementById("confirmHobbies").innerHTML = "Hobbies/Interests: "+ document.getElementById("hobbies/interests").value.bold();
+      document.getElementById("confirmPreferences").innerHTML = "Preferences: "+ preferenceList.bold();
+      if (document.getElementById("hobbies/interests").value==""){
+        document.getElementById("confirmHobbies").innerHTML = "Hobbies/Interests: NONE";
+      }
+      if (preferenceList==""){
+        document.getElementById("confirmPreferences").innerHTML = "Preferences NONE";
+      }
+      document.getElementById("confirmContainer").classList.add("confirmContainerOff")
+      document.getElementById("confirmContainer").classList.remove("confirmContainerOff");
+      document.getElementById("confirmContainer").classList.add("confirmContainerOn");
+    }
     event.preventDefault();
+  }
+  function noConfirm(){
+    document.getElementById("confirmContainer").classList.remove("confirmContainerOn");
+    document.getElementById("confirmContainer").classList.add("confirmContainerOff");
+  }
+  function verify(){
+    document.getElementById("confirmContainer").classList.remove("confirmContainerOn");
+    document.getElementById("confirmContainer").classList.add("confirmContainerOff");
+    writeCousinData(document.getElementById("cousin").value, preferences, document.getElementById("hobbies/interests").value);
+    alert("Very Good :)\n\nIf you would like to change any of your selections, resubmit the form under your name.\n\n*NOTE* This will override your entire previous submission, meaning you must resubmit items that you had previously entered if you would like to send it to the database!!!");
   }
   function changeName() {
     var getOptions = document.getElementsByClassName("famValue");
@@ -184,39 +227,45 @@ function App() {
       cousinsOptions.remove(0);
     }
     const cousinsArr = new Array("Anh-Viet", "Ai-Vy", "Ai-Van", "Anh-Vu", "Chris", "Phuong", "Khoi", "Thao", "Khoa", "Tyna", "Thi", "Tuong", "Thien-An", "Thai-Hien", "Thuan", "David", "Madison", "Aidan", "Brayson", "Mai-Linh", "Thai-Binh")
+    let defaultOption = new Option("Cousin","none");
     switch(memberIndex){
       case 1:
+        cousinsOptions.add(defaultOption,undefined);
         for (let i=0;i<5;i++){
           let newOption = new Option(cousinsArr[i],cousinsArr[i]);
           cousinsOptions.add(newOption,undefined);
         }
         break;
       case 2:
+        cousinsOptions.add(defaultOption,undefined);
         for (let i=5;i<10;i++){
           let newOption = new Option(cousinsArr[i],cousinsArr[i]);
           cousinsOptions.add(newOption,undefined);
         }
         break;
       case 3:
+        cousinsOptions.add(defaultOption,undefined);
         for (let i=10;i<15;i++){
           let newOption = new Option(cousinsArr[i],cousinsArr[i]);
           cousinsOptions.add(newOption,undefined);
         }
         break;
       case 4:
+        cousinsOptions.add(defaultOption,undefined);
         for (let i=15;i<19;i++){
           let newOption = new Option(cousinsArr[i],cousinsArr[i]);
           cousinsOptions.add(newOption,undefined);
         }
         break;
       case 5:
+        cousinsOptions.add(defaultOption,undefined);
         for (let i=19;i<21;i++){
           let newOption = new Option(cousinsArr[i],cousinsArr[i]);
           cousinsOptions.add(newOption,undefined);
         }
         break;
       default:
-        let newOption = new Option("Cousin","");
+        let newOption = new Option("Cousin","none");
         cousinsOptions.add(newOption,undefined);
         break;
     }
