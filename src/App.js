@@ -14,8 +14,18 @@ initialize();
 */
 
 function App() {
+  var preferences="";
   return (
     <div className="App" >
+      <div className="confirmContainer" id='confirmContainer'>
+        <h1 className="confirmTitle"><b>CONFIRM?</b></h1>
+        <p id='confirmCousin' className="confirmText"></p>
+        <p className="confirmText">***PLEASE make sure this is you!!***</p>
+        <p id='confirmHobbies' className="confirmText">Hobbies/Interests:</p>
+        <p id='confirmPreferences' className="confirmText">Preferences:</p>
+        <button id='verify' onClick={verify} className="confirmButton verify">YUP!</button>
+        <button id='noConfirm' onClick={noConfirm} className="confirmButton noConfirm">Not yet..</button>
+      </div>
       <div className='title'></div>
       <form>
       <div className="spaceDiv"></div>
@@ -160,11 +170,7 @@ function App() {
     </div>
   );
   function submit(event){
-    if (document.getElementById("cousin").value=="none"){
-      alert("SHAME SHAME SHAME\n\nPlease state who you are under the family and cousin dropdowns!");
-    }
-    else {
-      var idList = new Array("av1", "av2", "av3", "av4", "chris", "pktk1", "pktk2", "pktk3", "pktk4", "tyna", "t1", "t2", "t3", "t4", "t5","h1", "h2", "h3", "h4", "m1", "m2");
+    var idList = new Array("av1", "av2", "av3", "av4", "chris", "pktk1", "pktk2", "pktk3", "pktk4", "tyna", "t1", "t2", "t3", "t4", "t5","h1", "h2", "h3", "h4", "m1", "m2");
       var preferenceList = "";
       for (let i = 0; i<idList.length;i++){
         var id = document.getElementById(idList[i]);
@@ -173,11 +179,35 @@ function App() {
         }
       }
       preferenceList=preferenceList.substring(0,preferenceList.length-1);
-      writeCousinData(document.getElementById("cousin").value, preferenceList, document.getElementById("hobbies/interests").value);
-      alert("THE OPTIONS YOU HAVE CHOSEN ARE - \n\nCOUSIN: "+ document.getElementById("cousin").value + "  *MAKE SURE IT IS YOU!*\n\nHOBBIES/INTERESTS: "+document.getElementById("hobbies/interests").value+ "\n\nPREFERRED COUSIN: "+preferenceList+"If you mistakenly chosen the wrong cousin, PLEASE tell us so that they can fix it" );
-      alert("Very Good :)\n\nIf you would like to change any of your selections, resubmit the form under your name.\n\n*NOTE* This will override your entire previous submission, meaning you must resubmit items that you had previously entered if you would like to send it to the database!!!");
+      preferences=preferenceList;
+    if (document.getElementById("cousin").value=="none"){
+      alert("SHAME SHAME SHAME\n\nPlease state who you are under the family and cousin dropdowns!");
+    }
+    else {
+      document.getElementById("confirmCousin").innerHTML = "Who you are: "+ document.getElementById("cousin").value.bold();
+      document.getElementById("confirmHobbies").innerHTML = "Hobbies/Interests: "+ document.getElementById("hobbies/interests").value.bold();
+      document.getElementById("confirmPreferences").innerHTML = "Preferences: "+ preferenceList.bold();
+      if (document.getElementById("hobbies/interests").value==""){
+        document.getElementById("confirmHobbies").innerHTML = "Hobbies/Interests: NONE";
+      }
+      if (preferenceList==""){
+        document.getElementById("confirmPreferences").innerHTML = "Preferences NONE";
+      }
+      document.getElementById("confirmContainer").classList.add("confirmContainerOff")
+      document.getElementById("confirmContainer").classList.remove("confirmContainerOff");
+      document.getElementById("confirmContainer").classList.add("confirmContainerOn");
     }
     event.preventDefault();
+  }
+  function noConfirm(){
+    document.getElementById("confirmContainer").classList.remove("confirmContainerOn");
+    document.getElementById("confirmContainer").classList.add("confirmContainerOff");
+  }
+  function verify(){
+    document.getElementById("confirmContainer").classList.remove("confirmContainerOn");
+    document.getElementById("confirmContainer").classList.add("confirmContainerOff");
+    writeCousinData(document.getElementById("cousin").value, preferences, document.getElementById("hobbies/interests").value);
+    alert("Very Good :)\n\nIf you would like to change any of your selections, resubmit the form under your name.\n\n*NOTE* This will override your entire previous submission, meaning you must resubmit items that you had previously entered if you would like to send it to the database!!!");
   }
   function changeName() {
     var getOptions = document.getElementsByClassName("famValue");
