@@ -4,23 +4,23 @@
     background-size: cover;
     border: solid black 5px;
     border-radius: 15px;
-    height: 100vh;
+    height: 150vh;
     display:flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
+    flex-direction: column;
 }
 .title{
     background-image: url(../BRATss.png);
-    position:absolute;
     width:70vh;
     height:35vh;
-    top: 10px;
     background-size:cover;
     animation-name: float;
     animation-duration: 5s;
     animation-iteration-count: infinite;
     animation-timing-function: ease-in-out;
     z-index: 3;
+    margin: auto;
 }
 @keyframes float{
     0%{transform: translate(0px,0px);}
@@ -142,12 +142,9 @@ textarea{
 
 @media only screen and (max-width:725px){
     .title{
-        background-image: url(../BRATss.png);
-        position:absolute;
         width:50vh;
         height:25vh;
         top: 10px;
-        background-size:cover;
     }
     .confirmContainer{
         position:absolute;

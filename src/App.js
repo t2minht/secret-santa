@@ -30,9 +30,8 @@ function App() {
         <button id='verify' onClick={verify} className="confirmButton verify">YUP!</button>
         <button id='noConfirm' onClick={noConfirm} className="confirmButton noConfirm">Not yet..</button>
       </div>
-      <div className='title'></div>
       <form>
-      <div className="spaceDiv"></div>
+        <div className='title'></div> 
         <div className='formDiv familyDiv'>
           <label className='boldLabel' for="fam">Family: </label>
           {/*Family Choice*/}
