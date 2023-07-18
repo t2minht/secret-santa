@@ -8,9 +8,9 @@ def intialize():
 	default_app = firebase_admin.initialize_app(cred_object, {
 		'databaseURL': databaseURL
 	})
-def writeRecipient(name):
+def writeRecipient(name, recipient):
 	intialize()
 	ref = db.reference("/cousin")
-	ref.child(name).update({'recipient': 'poop'})
+	ref.child(name).update({'recipient': recipient})
 
 
