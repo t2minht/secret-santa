@@ -12,6 +12,36 @@ def initalize():
         fields = next(reader)
         for row in reader:
             preferencesSet = set(row[2].split("|"))
+            print(row[0])
+            print(preferencesSet)
+            if row[1] == "Huong":
+                preferencesSet.discard("Phuong")
+                preferencesSet.discard("Khoi")
+                preferencesSet.discard("Tyna")
+                preferencesSet.discard("Thao")
+                preferencesSet.discard("Khoa")
+            elif row[1] == "Tho":
+                preferencesSet.discard("Anh-Viet")
+                preferencesSet.discard("Ai-Vy")
+                preferencesSet.discard("Chris")
+                preferencesSet.discard("Ai-Van")
+                preferencesSet.discard("Anh-Vu")
+            elif row[1] == "Thuy":
+                preferencesSet.discard("Thi")
+                preferencesSet.discard("Tuong")
+                preferencesSet.discard("Thien-An")
+                preferencesSet.discard("Thai-Hien")
+                preferencesSet.discard("Thuan")
+            elif row[1] == "Nguyet":
+                preferencesSet.discard("David")
+                preferencesSet.discard("Madison")
+                preferencesSet.discard("Aidan")
+                preferencesSet.discard("Brayson")
+            elif row[1] == "Ut":
+                preferencesSet.discard("Mai-Linh")
+                preferencesSet.discard("Thai-Binh")
+                preferencesSet.discard("Anh-Mai")
+            print(preferencesSet)
             cousin = Cousin(row[0], row[1], preferencesSet)
             cousinsList.append(cousin)
     return cousinsList
@@ -68,7 +98,9 @@ def pickPreferences(wants, wanted):
     wanted = dict(l)
     pickedDict = dict()
 
+    print("Wants:")
     print(wants)
+    print("Wanted:")
     print(wanted)
 
     for cousin in wanted:
@@ -92,9 +124,9 @@ def pickPreferences(wants, wanted):
         if winner != "":
             pickedDict[winner] = cousin
         print("-------")
-        print(cousin)
+        print(cousin + " up for auction")
         print(wanted.get(cousin))
-        print(winner)
+        print("Winner: " + winner)
         print("-------")
 
         for key in wanted:
@@ -107,12 +139,70 @@ def pickPreferences(wants, wanted):
                 wants[key].remove(cousin)
             if len(wants[key]) < 0:
                 wants.pop(key)
-        print(wants)
-        print(wanted)
-    print("")
+        # print(wants)
+        # print(wanted)
+    # print("")
     print(pickedDict)
-        
+    
+    return pickedDict
 
+def normalPicking(cousinList, currentPicks):
+
+    leftovers = dict()
+    
+
+
+    failurePrev = True
+    while failurePrev:
+        with open('CousinChristmasList.csv') as file1:
+            reader1 = csv.reader(file1)
+            # sideA = random.choice(list(reader1))
+            li1 = list(reader1)
+            # print(li1)
+            random.shuffle(li1)
+        with open('CousinChristmasList.csv') as file2:
+            reader2 = csv.reader(file2)
+            # sideA = random.choice(list(reader1))
+            li2 = list(reader2)
+            random.shuffle(li2)
+            # print(li2)
+        finalList = []
+        failure = False
+        while len(li1) > 0 and len(li2) > 0:
+            left = li1[0]
+            right = li2[0]
+            matched = 0
+            start = ''
+            looping = False
+            while matched == 0:
+                if looping == True and start == right:
+                    break
+                if left[1] != right[1] and left[3] == right[3]:
+                    finalList.append([left[0], left[1], left[2], '-', right[0], right[1], right[2], right[4]])
+                    li1.pop(0)
+                    li2.pop(0)
+                    matched = 1
+                    start = ''
+                    looping = False
+                    print(len(li1))
+                else:
+                    if looping == False:
+                        start = li2[0]
+                        looping = True
+                    li2.append(li2.pop(0))
+                    left = li1[0]
+                    right = li2[0]
+            if looping == True and start == right:
+                print('Failure')
+                failure = True
+                break
+            else:
+                looping == True
+                start = ''
+            if len(li1) == 0:
+                failurePrev = False
+    if failure == False:
+        print()
     return
 
 def Pick():
@@ -125,4 +215,5 @@ print("Start")
 cL = initalize()
 wants = wants(cL)
 wanted = wanted(wants)
-pickPreferences(wants, wanted)
+pickedDict = pickPreferences(wants, wanted)
+finalPicks = normalPicking(cL, pickedDict)
