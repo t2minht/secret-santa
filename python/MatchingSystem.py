@@ -5,7 +5,7 @@ def initalize():
     # Get all cousins from database and create cousin objects
     # Return dictionary...set...maybe list? of cousin objects
     cousinsList = []
-    filename = 'src/exampleBank.csv'
+    filename = 'python/exampleBank.csv'
 
     with open(filename, "r") as file:
         reader = csv.reader(file)

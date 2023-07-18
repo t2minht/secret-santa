@@ -1,4 +1,4 @@
-from Cousin import Cousin
+from Cousin import cousin
 import random
 
 def initalize():
