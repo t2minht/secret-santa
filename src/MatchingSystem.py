@@ -148,26 +148,30 @@ def pickPreferences(wants, wanted):
 
 def normalPicking(cousinList, currentPicks):
 
-    leftovers = dict()
+    leftSide = []
+    rightSide = []
+    for cousin in cousinList:
+        name = cousin.name
+        if not (name in currentPicks.keys()):
+            leftSide.append([name, cousin.parent])
+        if not (name in currentPicks.values()):
+            rightSide.append([name, cousin.parent])
+
     
-
-
     failurePrev = True
     while failurePrev:
-        with open('CousinChristmasList.csv') as file1:
-            reader1 = csv.reader(file1)
-            # sideA = random.choice(list(reader1))
-            li1 = list(reader1)
-            # print(li1)
-            random.shuffle(li1)
-        with open('CousinChristmasList.csv') as file2:
-            reader2 = csv.reader(file2)
-            # sideA = random.choice(list(reader1))
-            li2 = list(reader2)
-            random.shuffle(li2)
-            # print(li2)
+
+        li1 = leftSide.copy()
+        random.shuffle(li1)
+        li2 = rightSide.copy()
+        random.shuffle(li2)
+
+        # print(li1)
+        # print(li2)
+        
         finalList = []
         failure = False
+
         while len(li1) > 0 and len(li2) > 0:
             left = li1[0]
             right = li2[0]
@@ -177,14 +181,15 @@ def normalPicking(cousinList, currentPicks):
             while matched == 0:
                 if looping == True and start == right:
                     break
-                if left[1] != right[1] and left[3] == right[3]:
-                    finalList.append([left[0], left[1], left[2], '-', right[0], right[1], right[2], right[4]])
+                if left[1] != right[1]:
+                    finalList.append([left[0], left[1], '-', right[0], right[1]])
+                    currentPicks[left[0]] = right[0]
                     li1.pop(0)
                     li2.pop(0)
                     matched = 1
                     start = ''
                     looping = False
-                    print(len(li1))
+                    # print(len(li1))
                 else:
                     if looping == False:
                         start = li2[0]
@@ -193,7 +198,7 @@ def normalPicking(cousinList, currentPicks):
                     left = li1[0]
                     right = li2[0]
             if looping == True and start == right:
-                print('Failure')
+                # print('Failure')
                 failure = True
                 break
             else:
@@ -202,7 +207,8 @@ def normalPicking(cousinList, currentPicks):
             if len(li1) == 0:
                 failurePrev = False
     if failure == False:
-        print()
+        for key in currentPicks.keys():
+            print(key + " : " + currentPicks[key])
     return
 
 def Pick():
