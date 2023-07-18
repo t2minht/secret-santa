@@ -1,0 +1,158 @@
+.App{
+    background-image: url(../CousinGif2.gif);
+    background-repeat: no-repeat;
+    background-size: cover;
+    border: solid black 5px;
+    border-radius: 15px;
+    height: 150vh;
+    display:flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+}
+.title{
+    background-image: url(../BRATss.png);
+    width:70vh;
+    height:35vh;
+    background-size:cover;
+    animation-name: float;
+    animation-duration: 5s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+    z-index: 3;
+    margin: auto;
+}
+@keyframes float{
+    0%{transform: translate(0px,0px);}
+    50%{transform: translate(0px,20px);}
+    100%{transform: translate(0px,0px);}
+}
+
+.confirmContainer{
+    position:absolute;
+    background-color: rgb(250, 255, 178);
+    top:30vh;
+    width:70vh;
+    height:35vh;
+    border: black solid 5px;
+    border-radius: 50px;
+    z-index: 5;
+    font-family: 'Courier New', Courier, monospace;
+    visibility: hidden;
+}
+.confirmContainerOn{
+    visibility: visible;
+    animation-name: toggleConfirmOn;
+    animation-duration: 0.5s;
+    
+}
+.confirmContainerOff{
+    animation-name: toggleConfirmOff;
+    animation-duration: 0.5s;
+}
+@keyframes toggleConfirmOn{
+    0%{scale: 0; top:0px; transform: translate(0px,0px);}
+    100%{scale: 1;}
+}
+@keyframes toggleConfirmOff{
+    0%{scale:1; visibility: visible;}
+    100%{scale:0; visibility: hidden;}
+}
+.confirmText{
+    text-align: left;
+    padding-left: 50px;
+}
+.confirmTitle{
+    text-align: center;;
+}
+.confirmButton{
+    padding:10px;
+    font-weight: bold;
+    margin: 5px;
+    background-color: red;
+    border-radius: 10px;
+    text-align: center;
+}
+.verify{
+    background-color: rgb(0, 255, 0);
+    margin-left: 45px;
+}
+.verify:hover{
+    background-color: rgb(0, 165, 0);
+}
+.noConfirm:hover{
+    background-color: rgb(177, 0, 0);
+}
+.spaceDiv{
+    height: 250px;
+}
+.formDiv{
+    background-color: aliceblue;
+    padding:10px;
+    margin:2px;
+    max-width: 1200px;
+    border: outset 3px;
+    border-top-color:rgb(199, 0, 0);
+    border-left-color: rgb(105, 1, 1);
+    border-bottom-color: rgb(2, 105, 24);
+    border-right-color: rgb(1, 170, 1);
+    font-size: large;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+select{
+    min-width: 200px;
+    font-size: large;
+    font-family: 'Courier New', Courier, monospace;
+}
+select:hover{
+    background-color:  rgb(240, 240, 240);
+}
+.preferences{
+    flex-direction: row;
+    flex-wrap: wrap;
+    width:100%;
+    height:70%;
+    border: black solid 1px;
+    display: inline-flex;
+}
+.checkBox{
+    margin:5px;
+    width:120px;
+    text-align: right;
+}
+textarea{
+    resize: none;
+    width:99.5%;
+    height:200px;
+    font-family: 'Courier New', Courier, monospace;
+}
+.boldLabel{
+    font-weight: bolder;
+}
+.submitButton{
+    display: inline;
+}
+.submit{
+    text-align: center;
+}
+.submit:hover{
+    background-color: rgb(200, 200, 200);
+}
+
+@media only screen and (max-width:725px){
+    .title{
+        width:50vh;
+        height:25vh;
+        top: 10px;
+    }
+    .confirmContainer{
+        position:absolute;
+        background-color: rgb(248, 255, 155);
+        width:50vh;
+        height:35vh;
+        border: black solid 5px;
+        border-radius: 50px;
+        z-index: 5;
+    }
+}
