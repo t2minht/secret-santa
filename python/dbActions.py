@@ -25,7 +25,7 @@ def readDB():
     ref = db.reference("/cousin")
     cousinDict = ref.get()
 
-    # print(cousinDict)
+    print(cousinDict)
     writefile = "python/test.csv"
     with open(writefile, "w", newline = '') as file:
         writer = csv.writer(file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
@@ -34,5 +34,11 @@ def readDB():
             cousinInfo = cousinDict[key]
             preferences = cousinInfo["preferences"].replace(",", "|")
             writer.writerow([key, cousinInfo["parent"], preferences])
+    phonefile = "python/numbers.csv"
+    with open(phonefile, "w", newline = '') as file:
+        writer = csv.writer(file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+        for key in cousinDict.keys():
+            writer.writerow([key, cousinInfo["phone"]])
+
     
 
