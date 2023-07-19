@@ -1,19 +1,19 @@
 from Cousin import Cousin
-import random, csv, os
+import random, csv, os, datetime
 
 def initalize():
     # Get all cousins from database and create cousin objects
     # Return dictionary...set...maybe list? of cousin objects
     cousinsList = []
-    filename = 'python/exampleBank.csv'
+    filename = 'python/test.csv'
 
     with open(filename, "r") as file:
         reader = csv.reader(file)
         fields = next(reader)
         for row in reader:
             preferencesSet = set(row[2].split("|"))
-            print(row[0])
-            print(preferencesSet)
+            # print(row[0])
+            # print(preferencesSet)
             if row[1] == "Huong":
                 preferencesSet.discard("Phuong")
                 preferencesSet.discard("Khoi")
@@ -41,7 +41,7 @@ def initalize():
                 preferencesSet.discard("Mai-Linh")
                 preferencesSet.discard("Thai-Binh")
                 preferencesSet.discard("Anh-Mai")
-            print(preferencesSet)
+            # print(preferencesSet)
             cousin = Cousin(row[0], row[1], preferencesSet)
             cousinsList.append(cousin)
     return cousinsList
@@ -98,10 +98,10 @@ def pickPreferences(wants, wanted):
     wanted = dict(l)
     pickedDict = dict()
 
-    print("Wants:")
-    print(wants)
-    print("Wanted:")
-    print(wanted)
+    # print("Wants:")
+    # print(wants)
+    # print("Wanted:")
+    # print(wanted)
 
     for cousin in wanted:
         votersWeights= []
@@ -123,11 +123,11 @@ def pickPreferences(wants, wanted):
                 break
         if winner != "":
             pickedDict[winner] = cousin
-        print("-------")
-        print(cousin + " up for auction")
-        print(wanted.get(cousin))
-        print("Winner: " + winner)
-        print("-------")
+        # print("-------")
+        # print(cousin + " up for auction")
+        # print(wanted.get(cousin))
+        # print("Winner: " + winner)
+        # print("-------")
 
         for key in wanted:
             if winner in wanted[key]:
@@ -142,7 +142,7 @@ def pickPreferences(wants, wanted):
         # print(wants)
         # print(wanted)
     # print("")
-    print(pickedDict)
+    # print(pickedDict)
     
     return pickedDict
 
@@ -206,20 +206,34 @@ def normalPicking(cousinList, currentPicks):
                 start = ''
             if len(li1) == 0:
                 failurePrev = False
-    if failure == False:
-        for key in currentPicks.keys():
-            print(key + " : " + currentPicks[key])
-    return
+    # if failure == False:
+        # for key in currentPicks.keys():
+        #     print(key + " : " + currentPicks[key])
+    return currentPicks
+
+def csvExport(selectionDict):
+    current_time = str(datetime.datetime.now().strftime("%d-%m-%Y_%H-%M-%S"))
+    writefile = "python/matching" + current_time + ".csv"
+    with open(writefile, "w", newline = '') as file:
+        writer = csv.writer(file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+        for key in selectionDict.keys():
+            writer.writerow([key, selectionDict[key]])
+    return writefile
+
 
 def Pick():
-    cousins = initalize()
-    wants = wants(cousins)
-    wanted = wanted(wants)
-    choicePicked = pickPreferences(wants, wanted)
+    cL = initalize()
+    a = wants(cL)
+    b = wanted(a)
+    pickedDict = pickPreferences(a, b)
+    finalPicks = normalPicking(cL, pickedDict)
+    filename = csvExport(finalPicks)
+    return filename
 
-print("Start")
-cL = initalize()
-wants = wants(cL)
-wanted = wanted(wants)
-pickedDict = pickPreferences(wants, wanted)
-finalPicks = normalPicking(cL, pickedDict)
+# Pick()
+# print("Start")
+# cL = initalize()
+# wants = wants(cL)
+# wanted = wanted(wants)
+# pickedDict = pickPreferences(wants, wanted)
+# finalPicks = normalPicking(cL, pickedDict)
