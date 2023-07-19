@@ -164,6 +164,11 @@ function App() {
             <label for='m2'>Thai-Binh</label>
             <input type='checkbox' id='m2' value={"Thai-Binh"} name='preference'></input>
             </div>
+
+            <div className='checkBox'>
+            <label for='m3'>Anh-Mai</label>
+            <input type='checkbox' id='m3' value={"Anh-Mai"} name='preference'></input>
+            </div>
           </div>
         </div>
         <div className='submitButton '>
@@ -173,7 +178,7 @@ function App() {
     </div>
   );
   function submit(event){
-    var idList = new Array("av1", "av2", "av3", "av4", "chris", "pktk1", "pktk2", "pktk3", "pktk4", "tyna", "t1", "t2", "t3", "t4", "t5","h1", "h2", "h3", "h4", "m1", "m2");
+    var idList = new Array("av1", "av2", "av3", "av4", "chris", "pktk1", "pktk2", "pktk3", "pktk4", "tyna", "t1", "t2", "t3", "t4", "t5","h1", "h2", "h3", "h4", "m1", "m2", "m3");
       var preferenceList = "";
       for (let i = 0; i<idList.length;i++){
         var id = document.getElementById(idList[i]);
@@ -225,7 +230,7 @@ function App() {
     while (cousinsOptions.length>0){
       cousinsOptions.remove(0);
     }
-    const cousinsArr = new Array("Anh-Viet", "Ai-Vy", "Ai-Van", "Anh-Vu", "Chris", "Phuong", "Khoi", "Thao", "Khoa", "Tyna", "Thi", "Tuong", "Thien-An", "Thai-Hien", "Thuan", "David", "Madison", "Aidan", "Brayson", "Mai-Linh", "Thai-Binh")
+    const cousinsArr = new Array("Anh-Viet", "Ai-Vy", "Ai-Van", "Anh-Vu", "Chris", "Phuong", "Khoi", "Thao", "Khoa", "Tyna", "Thi", "Tuong", "Thien-An", "Thai-Hien", "Thuan", "David", "Madison", "Aidan", "Brayson", "Mai-Linh", "Thai-Binh", "Anh-Mai")
     let defaultOption = new Option("Cousin","none");
     switch(memberIndex){
       case 1:
@@ -258,7 +263,7 @@ function App() {
         break;
       case 5:
         cousinsOptions.add(defaultOption,undefined);
-        for (let i=19;i<21;i++){
+        for (let i=19;i<22;i++){
           let newOption = new Option(cousinsArr[i],cousinsArr[i]);
           cousinsOptions.add(newOption,undefined);
         }
